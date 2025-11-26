@@ -49,7 +49,7 @@ public class Uzd1 {
 					koPievienot = JOptionPane.showInputDialog("Ievadi produktu ko pievienot:");
 					
 					
-				}while((jauEksiste(saraksts, koPievienot)) == true || !koPievienot.matches("[\\p{L}&&\\p{IsLatin}]+"));
+				}while((jauEksiste(saraksts, koPievienot) == true )|| !koPievienot.matches("^[\\p{L} ]+$"));
 				saraksts.add(koPievienot.toLowerCase());
 				JOptionPane.showMessageDialog(null, "Produkts veiksmigi pievienots sarakstam!");
 				break;
