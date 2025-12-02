@@ -131,6 +131,17 @@ public class Uzd1 {
 						}
 						break;
 						case "10":
+							do {
+								kkurMainit = Integer.parseInt(JOptionPane.showInputDialog("Ievadi indeksa vietu kuru mainit (no 0 lidz " + (saraksts.size()-1) + "):"));
+								arKoAizstat = JOptionPane.showInputDialog("Ievadi produktu ar ko aizstatit:");
+								if(kkurMainit <0 || kkurMainit > saraksts.size()-1) {
+									JOptionPane.showMessageDialog(null, "Nepareiza indeksa vieta!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+									}else {
+										saraksts.set(kkurMainit, arKoAizstat.toLowerCase());
+										JOptionPane.showMessageDialog(null, "Produkts veiksmigi aizstatits!", "Informacija", JOptionPane.INFORMATION_MESSAGE);
+									}
+								
+							}while(!arKoAizstat.matches("^[\\p{L} ]+$"));
 							break;
 							case "11":
 								saraksts.sort(String.CASE_INSENSITIVE_ORDER);
@@ -143,7 +154,7 @@ public class Uzd1 {
 								case "0":
 									JOptionPane.showMessageDialog(null, "Iziet no programmas!", "Informacija", JOptionPane.INFORMATION_MESSAGE);
 									break;
-									default:
+								default:
 										JOptionPane.showMessageDialog(null, "Nepareiza ievade!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 			}
 			
