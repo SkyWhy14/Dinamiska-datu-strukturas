@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-public class Uzd1 {
+public class Saraksts {
 	static boolean jauEksiste(LinkedList<String> saraksts, String elements) {
 		for(int i =0;i<saraksts.size();i++) {
 			if(saraksts.get(i).equalsIgnoreCase(elements)) {
@@ -20,7 +20,7 @@ public class Uzd1 {
 		
 	public static void main(String[] args) {
 		String izvele ,koPievienot ,koAtrast,koNonemt,arKoAizstat;
-		int kurPievienot,kurNonemt,kkurMainit;
+		int kurPievienot ,kurNonemt,kkurMainit;
 		LinkedList<String> saraksts = new LinkedList<>();
 		
 		
@@ -44,15 +44,27 @@ public class Uzd1 {
 					izvele = "0";
 			}while(!izvele.matches("\\d+"));
 			switch(izvele) {
+			//vajag kad pildot darbibu un spiz cancel tad neiziet no programmas bet atgriezas uz izvele
 			case  "1":
+				
 				do {
 					koPievienot = JOptionPane.showInputDialog("Ievadi produktu ko pievienot:");
-					
+					if(koPievienot == null) {
+						break;
+					}
 					
 				}while((jauEksiste(saraksts, koPievienot) == true )|| !koPievienot.matches("^[\\p{L} ]+$"));
+				
+				if(koPievienot == null) {
+					break;
+				}
 				saraksts.add(koPievienot.toLowerCase());
-				JOptionPane.showMessageDialog(null, "Produkts veiksmigi pievienots sarakstam!");
 				break;
+				
+				
+			
+				
+			
 			case "2":
 				JOptionPane.showMessageDialog(null, "Saraksta produktu skaits ir: " + saraksts.size());
 				break;
@@ -70,22 +82,49 @@ public class Uzd1 {
 					}
 				break;
 			case "4":
+				
 				do {
+					if(saraksts.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Saraksts ir tukss!","Kļūda",JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					
 					koAtrast = JOptionPane.showInputDialog("Ievadi produktu ko atrast:");
+					if(koAtrast == null) {
+						break;
+					}
+					
 					if(saraksts.contains(koAtrast.toLowerCase())) {
 						JOptionPane.showMessageDialog(null, "Produkts atrasts saraksta!");
 					}else {
 						JOptionPane.showMessageDialog(null, "Produkts nav saraksta!");
 					}
 					
+					
+					
+					
+					
+					
 					break;
-				}while(!koAtrast.matches("^[\\p{L} ]+$"));
+					
+				}while(!koAtrast.matches("^[\\p{L} ]+$") );
+				
+				
+				
 				break;
 			case "5" :
+				if(saraksts.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Saraksts ir tukss!","Kļūda",JOptionPane.ERROR_MESSAGE);
+					break;
+				}
 				do {
 					koPievienot = JOptionPane.showInputDialog("Ievadi produktu ko pievienot:");
 					
+					
 					kurPievienot = Integer.parseInt(JOptionPane.showInputDialog("Ievadi indeksa vietu kur pievienot produktu (no 0 lidz " + saraksts.size() + "):"));
+					
+					
+					
 					if(kurPievienot <0 || kurPievienot > saraksts.size()) {
 						JOptionPane.showMessageDialog(null, "Nepareiza indeksa vieta!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 						kurPievienot = Integer.parseInt(JOptionPane.showInputDialog("Ievadi indeksa vietu kur pievienot produktu (no 0 lidz " + saraksts.size() + "):"));
@@ -93,12 +132,20 @@ public class Uzd1 {
 						break;
 					}
 					
+					
 				}while((jauEksiste(saraksts, koPievienot) == true )|| !koPievienot.matches("^[\\p{L} ]+$")|| kurPievienot>saraksts.size()|| kurPievienot<0);
 				saraksts.add(kurPievienot-1, koPievienot.toLowerCase());
 				break;
 			case "6":
+				if(saraksts.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Saraksts ir tukss!","Kļūda",JOptionPane.ERROR_MESSAGE);
+					break;
+				}
 				do {
 					koNonemt = JOptionPane.showInputDialog("Ievadi produktu ko nonemt:");
+					if(koNonemt == null) {
+						break;
+					}
 					
 				}while(!koNonemt.matches("^[\\p{L} ]+$")|| !jauEksiste(saraksts, koNonemt));
 				if(saraksts.remove(koNonemt.toLowerCase())) 
@@ -106,6 +153,10 @@ public class Uzd1 {
 				
 				break;
 				case "7":
+					if(saraksts.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Saraksts ir tukss!","Kļūda",JOptionPane.ERROR_MESSAGE);
+						break;
+					}
 					kurNonemt = Integer.parseInt(JOptionPane.showInputDialog("Ievadi indeksa vietu kuru nonemt (no 0 lidz " + (saraksts.size()-1) + "):"));
 					if(kurNonemt <0 || kurNonemt > saraksts.size()-1) {
 						JOptionPane.showMessageDialog(null, "Nepareiza indeksa vieta!", "Kļūda", JOptionPane.ERROR_MESSAGE);
@@ -115,6 +166,10 @@ public class Uzd1 {
 					}
 					break;
 				case "8":
+					if(saraksts.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Saraksts ir tukss!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
 					if(!saraksts.isEmpty()) {
 						saraksts.removeFirst();
 						JOptionPane.showMessageDialog(null, "Pirmais produkts veiksmigi noņemts no saraksta!", "Informacija", JOptionPane.INFORMATION_MESSAGE);
@@ -123,6 +178,10 @@ public class Uzd1 {
 					}
 					break;
 					case "9":
+						if(saraksts.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Saraksts ir tukss!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+							break;
+						}
 						if(!saraksts.isEmpty()) {
 							saraksts.removeLast();
 							JOptionPane.showMessageDialog(null, "Pedejais produkts veiksmigi noņemts no saraksta!", "Informacija", JOptionPane.INFORMATION_MESSAGE);
@@ -134,6 +193,7 @@ public class Uzd1 {
 							do {
 								kkurMainit = Integer.parseInt(JOptionPane.showInputDialog("Ievadi indeksa vietu kuru mainit (no 0 lidz " + (saraksts.size()-1) + "):"));
 								arKoAizstat = JOptionPane.showInputDialog("Ievadi produktu ar ko aizstatit:");
+								
 								if(kkurMainit <0 || kkurMainit > saraksts.size()-1) {
 									JOptionPane.showMessageDialog(null, "Nepareiza indeksa vieta!", "Kļūda", JOptionPane.ERROR_MESSAGE);
 									}else {
@@ -144,10 +204,18 @@ public class Uzd1 {
 							}while(!arKoAizstat.matches("^[\\p{L} ]+$"));
 							break;
 							case "11":
+								if(saraksts.isEmpty()) {
+									JOptionPane.showMessageDialog(null, "Saraksts ir tukss!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+									break;
+								}
 								saraksts.sort(String.CASE_INSENSITIVE_ORDER);
 								JOptionPane.showMessageDialog(null, "Saraksts veiksmigi sakartots aflabetiski!", "Informacija", JOptionPane.INFORMATION_MESSAGE);
 								break;
 								case "12":
+									if(saraksts.isEmpty()) {
+										JOptionPane.showMessageDialog(null, "Saraksts ir tukss!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+										break;
+									}
 									saraksts.clear();
 									JOptionPane.showMessageDialog(null, "Saraksts veiksmigi nodzests!", "Informacija", JOptionPane.INFORMATION_MESSAGE);
 									break;
