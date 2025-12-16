@@ -1,6 +1,10 @@
 package Steks;
 
+import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.Stack;
+
+import javax.swing.JOptionPane;
 
 public class Uzd2 {
 /*Izmantojot JOptionPane klases dialoglodziņus datu ievadei un izvadei,
@@ -17,9 +21,68 @@ public class Uzd2 {
 		Stack<Integer> bumbas = new Stack<>();
 		Stack<Integer> laimigie = new Stack<>();
 		 String izvele;
+		 Random random  = new Random();
+		 LocalDateTime laiksTagad = LocalDateTime.now();
 		long laiksPirmsIzlozes = 0;
-		long laiksPecIzlozes = 60000; //1 minute in milliseconds
-		 String [] darbibas = {"Veikt izlozi","Apskatīt laimīgos skaitļus","Apturēt programmu"};
+		long laiksPecIzlozes = 60000; 
+		 String [] darbibas = {"Veikt izlozi","Apskatīt laimīgos skaitļus","Apksatit visus skaitlus ","Apturēt programmu"};
+		 do {
+			 izvele = (String) JOptionPane.showInputDialog(null, "Izvēlies darbību", "Darbību izvēlne", JOptionPane.QUESTION_MESSAGE, null, darbibas, darbibas[0]);
+				if(izvele == null) {
+					izvele = "Apturēt programmu";
+				}
+			 switch(izvele) {
+			 case "Veikt izlozi":
+				 //parada datumu un laiku kad veikta izloze
+				
+				 
+				 laiksPecIzlozes = System.currentTimeMillis();
+				 if(laiksPecIzlozes - laiksPirmsIzlozes >= 60000) {
+					 laimigie.clear();
+					 for(int i =0;i<3;i++) {
+						 bumbas.clear();
+						 for(int j =0;j<11;j++) {
+							 //skaitli no 1 lidz 10
+							int bumba = random.nextInt(10)+1;
+							bumbas.push(bumba);
+						 }
+						 
+						 int laimigaBumba = bumbas.pop();
+						 laimigie.push(laimigaBumba);
+					 }
+					 JOptionPane.showMessageDialog(null, "Izloze veikta!");
+					 JOptionPane.showMessageDialog(null, laiksTagad);
+					 laiksPirmsIzlozes = System.currentTimeMillis();
+					 				 }else {
+					 					 long atlikusaisLaiks = 60000 - (laiksPecIzlozes - laiksPirmsIzlozes);
+					 					 JOptionPane.showMessageDialog(null, "Izloze jau veikta! Lūdzu uzgaidiet vēl " + (atlikusaisLaiks / 1000) + " sekundes.");
+					 				 }
+				 break;
+				 						 case "Apskatīt laimīgos skaitļus":
+				 							 break;
+				 							 //parada visus skaitlus
+				 				 case "Apksatit visus skaitlus ":
+				 			 if(laimigie.isEmpty()) {
+				 				 JOptionPane.showMessageDialog(null, "Nav veikta izloze!");
+				 				 
+									 
+				 			 }else {
+				 				 String visiLaimigie = "visi skaitli ir: ";
+				 				 for(int i =0;i<bumbas.size();i++) {
+				 					 visiLaimigie += bumbas.get(i) + " ";
+				 				 }
+				 				 JOptionPane.showMessageDialog(null, visiLaimigie);
+				 			 }
+				 			 break;
+				 							 
+				 			 case "Apturēt programmu":
+				 				 JOptionPane.showMessageDialog(null, "Programma apturēta!");
+				 				 break;
+				 
+			 }
+			 
+		 }while(!izvele.equals("Apturēt programmu"));
+		 
 		 
 		
 
