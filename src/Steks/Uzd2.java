@@ -1,6 +1,7 @@
 package Steks;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.Stack;
 
@@ -21,8 +22,13 @@ public class Uzd2 {
 		Stack<Integer> bumbas = new Stack<>();
 		Stack<Integer> laimigie = new Stack<>();
 		 String izvele;
-		 Random random  = new Random();
-		 LocalDateTime laiksTagad = LocalDateTime.now();
+		 Random random  = new Random();//
+		 LocalDateTime tagad = LocalDateTime.now();
+		 DateTimeFormatter formatets = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		 String laiksTagad = "Izloze veikta: " + tagad.format(formatets);
+		 
+		
+		
 		long laiksPirmsIzlozes = 0;
 		long laiksPecIzlozes = 60000; 
 		 String [] darbibas = {"Veikt izlozi","Apskatīt laimīgos skaitļus","Apksatit visus skaitlus ","Apturēt programmu"};
@@ -59,6 +65,15 @@ public class Uzd2 {
 					 				 }
 				 break;
 				 						 case "Apskatīt laimīgos skaitļus":
+				 		if(laimigie.isEmpty()) {
+				 			JOptionPane.showMessageDialog(null, "Nav veikta izloze!");				 				 				 
+				 		 }else {
+				 			 String laimigieSkaitli = "Laimīgie skaitļi ir: ";
+				 			 for(int i =0;i<laimigie.size();i++) {
+				 				 laimigieSkaitli += laimigie.get(i) + " ";
+				 			 }
+				 			 JOptionPane.showMessageDialog(null, laimigieSkaitli);
+				 		 }
 				 							 break;
 				 							 //parada visus skaitlus
 				 				 case "Apksatit visus skaitlus ":
