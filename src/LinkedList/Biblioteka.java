@@ -80,6 +80,7 @@ public class Biblioteka {
                 "Noņemt grāmatu",
                 "Apskatīt grāmatu",
                 "Iznomāt grāmatu",
+                "Atdot grāmatu",
                 "Iziet no programmas"
         };
 
@@ -93,10 +94,11 @@ public class Biblioteka {
 
             switch (izvelne) {
                 case "Pievienot grāmatu":
-                    nosaukums = virknesParbaude("Ieraksti grāmatas nosaukumu", "Harry Potter un filozofu akmens");
+                    nosaukums = virknesParbaude("Ieraksti grāmatas nosaukumu", "nigga boy");
                     if (nosaukums == null) break;
-                    //pabaudi vai tada grammata jau eksiste plauktā
-
+                    //pabaudi vai tada grammata jau nav ielikta plaukta
+                    
+                    
                     autors = virknesParbaude("Ieraksti autora vārdu", "J.K. Rowling");
                     if (autors == null) break;
 
@@ -132,14 +134,71 @@ public class Biblioteka {
                         JOptionPane.showMessageDialog(null, "Grāmata noņemta no plaukta!", "Paziņojums", JOptionPane.INFORMATION_MESSAGE);
                     }
                     break;
-
                 case "Apskatīt grāmatu":
+                						if (plaukts.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Plaukts ir tukšs!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+						break;
+					}else {
+						nosaukums = virknesParbaude("Ieraksti grāmatas nosaukumu ko vēlies apskatīt", "nigga boy");
+						if (nosaukums == null) break;
+						indekss = meklet(plaukts, nosaukums);
+						if(indekss == -1) {
+							JOptionPane.showMessageDialog(null, "Grāmata nav plauktā!", "Kļūda", JOptionPane.ERROR_MESSAGE);
+							}else {
+								
+								plaukts.get(indekss).info();
+							}
+					}
+                	break;
+                case "Iznomāt grāmatu":
+    				
+    				if(plaukts.isEmpty())
+    					JOptionPane.showMessageDialog(null, "Nav plauktā nevienas grāmatas!", "Brīdinājums", JOptionPane.WARNING_MESSAGE);
+    				else {
+    					nosaukums = virknesParbaude("Kādu grāmatu meklējat", "nigga boy");
+    					
+    					if(nosaukums == null)
+    						break;
+    					
+    					indekss = meklet(plaukts, nosaukums);
+    					
+    					if(indekss == -1)
+    						JOptionPane.showMessageDialog(null, "Meklētā grāmata nemaz plauktā neotrodas!", "Brīdinājums", JOptionPane.WARNING_MESSAGE);
+    					else {
+    						plaukts.get(indekss).panemtGramatu();
+    					}
+    						
+    				}
+    				
+    				break;
+    				
+                case "Atdot grāmatu":
+                if(plaukts.isEmpty())
+                JOptionPane.showMessageDialog(null, "Nav plauktā nevienas grāmatas!", "Brīdinājums", JOptionPane.WARNING_MESSAGE);
+                else {
+                	nosaukums = virknesParbaude("Kādu grāmatu vēlaties atdot", "nigga boy");
+					
+					if(nosaukums == null)
+						break;
+					
+					indekss = meklet(plaukts, nosaukums);
+					
+					if(indekss == -1)
+						JOptionPane.showMessageDialog(null, "Meklētā grāmata nemaz plauktā neotrodas!", "Brīdinājums", JOptionPane.WARNING_MESSAGE);
+					else {
+						plaukts.get(indekss).panemtGramatu();
+						
+					}
+                }
+                break;
                 	
+                case "Iziet no programmas":
+                	JOptionPane.showMessageDialog(null, "Programma tika apturēta","Paziņojums",JOptionPane.INFORMATION_MESSAGE);
                     
             }
 
         } while (!izvelne.equals("Iziet no programmas"));
 
-        JOptionPane.showMessageDialog(null, "Iziets no programmas!");
+         	
     }
 }
